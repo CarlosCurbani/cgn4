@@ -2,27 +2,25 @@ package br.furb.cg.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
-import javax.swing.SwingUtilities;
-
 import br.furb.cg.labirinto.Labirinto;
 import br.furb.cg.objetoGL.Camera;
 import br.furb.cg.objetoGL.ObjetoGrafico;
 
 public class Main implements GLEventListener, KeyListener{
+	
+	private Labirinto labirinto;
+	
 	public static void main(String[] args) {
 		System.out.println("CG-N4-PACMAN");
-		Labirinto labirinto = new Labirinto();
-		
 	}		
+	
 	private GL gl;
 	private GLU glu;
 	private GLAutoDrawable glDrawable;
@@ -46,7 +44,7 @@ public class Main implements GLEventListener, KeyListener{
 		glu = new GLU();
 		glDrawable.setGL(new DebugGL(gl));
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		
+		labirinto = new Labirinto();
 	}
 
 	public void display(GLAutoDrawable arg0)
@@ -102,6 +100,18 @@ public class Main implements GLEventListener, KeyListener{
 		
 		
 		switch (e.getKeyCode()) {
+		case KeyEvent.VK_RIGHT: 
+			labirinto.moveToRight();
+			break;
+		case KeyEvent.VK_LEFT:
+			labirinto.moveToLeft();
+			break;
+		case KeyEvent.VK_UP:
+			labirinto.moveUp();
+			break;
+		case KeyEvent.VK_DOWN:
+			labirinto.moveDown();
+			break;
 		case KeyEvent.VK_I:
 			System.out.println("inicio");			
 			break;
