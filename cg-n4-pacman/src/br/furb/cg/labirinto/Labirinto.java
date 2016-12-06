@@ -1,8 +1,12 @@
 package br.furb.cg.labirinto;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import br.furb.cg.objetoGL.ObjetoGrafico;
+import br.furb.cg.pacman.Adversario;
 import br.furb.cg.pacman.PacMan;
 
 public class Labirinto {
@@ -10,26 +14,52 @@ public class Labirinto {
 	private PacMan pacMan;
 	private int length;
 	private ObjetoGrafico objetoGrafico;
+	private ArrayList<Adversario> adversarios;
 	
 	public Labirinto(){
 		geraTerreno(10);
+		pacMan = new PacMan(5, 4);
+		adversarios = createAdversarios();
 		imprimeLabirinto();
-		pacMan = new PacMan();
 		objetoGrafico = new ObjetoGrafico();
 	}
 	
 	private void geraTerreno(int x){
+		int maxParede = 0;
 		length = x - 1;
 		terreno = new int [x][x];
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
-					terreno[i][j] = (int) Math.round(Math.random() * 1);			
+				int value = (int) Math.round(Math.random() * 1);
+				if (value == 1 && maxParede < (x * 3)) {
+					terreno[i][j] = 1;		
+					maxParede++;
+				} else {
+					terreno[i][j] = 0;
+				}
+						
 			}
 			System.out.println("");			
 		}
 		terreno[5][4] = 2;
 	}
 
+	public ArrayList<Adversario> createAdversarios() {
+		Random rn = new Random();
+		ArrayList<Adversario> adversarios = new ArrayList<>();
+		do {
+			int x = rn.nextInt(10);
+			int y = rn.nextInt(10);
+			if (terreno[x][y] == 0) {
+				Adversario adv = new Adversario(x, y, length, terreno);
+				adversarios.add(adv);
+				new Thread(adv).start();
+				terreno[x][y] = 3;
+			}
+		} while (adversarios.size() < 6);
+		return adversarios;
+	}
+	
 	public void imprimeLabirinto(){
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
