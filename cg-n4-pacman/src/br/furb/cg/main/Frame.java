@@ -1,52 +1,54 @@
 package br.furb.cg.main;
-import java.awt.BorderLayout;
 
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLCapabilities;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+import javax.swing.*;
+import java.awt.*; 
 
-public class Frame extends JFrame{
+import javax.media.opengl.*;
 
-	private static final long serialVersionUID = 1L;
-	private Main renderer = new Main();
-	
-	private int janelaLargura  = 400, janelaAltura = 400;
-	
-	public Frame() {		
-		// Cria o frame.
-		super("CG-N4-PAC_MAN");   
-		setBounds(300,250,janelaLargura,janelaAltura+22);  // 400 + 22 da borda do t’tulo da janela
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout());
+public class Frame
+{
+	private Main renderer;
 
-		/* Cria um objeto GLCapabilities para especificar 
-		 * o numero de bits por pixel para RGBA
-		 */
-		GLCapabilities glCaps = new GLCapabilities();
-		glCaps.setRedBits(8);
-		glCaps.setBlueBits(8);
-		glCaps.setGreenBits(8);
-		glCaps.setAlphaBits(8); 
-
-		/* Cria um canvas, adiciona ao frame e objeto "ouvinte" 
-		 * para os eventos Gl, de mouse e teclado
-		 */
-		GLCanvas canvas = new GLCanvas(glCaps);
-		add(canvas,BorderLayout.CENTER);
-		canvas.addGLEventListener(renderer);        
-		canvas.addKeyListener(renderer);
-		//canvas.addMouseListener(renderer);
-		//canvas.addMouseMotionListener(renderer);
-		canvas.requestFocus();			
-	}		
 	/**
-	 * Executa frame
-	 * @param args
+	 * Construtor da classe ExemploJava que não recebe parâmetros. Cria uma janela e insere  
+	 * um componente canvas OpenGL.
 	 */
-	public static void main(String[] args) {
-		new Frame().setVisible(true);
+	public Frame()
+	{
+		// Cria janela
+		JFrame janela = new JFrame("Textura");   
+		janela.setBounds(50,100,500,500); 
+		janela.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+		BorderLayout layout = new BorderLayout(); 
+		Container caixa=janela.getContentPane();
+		caixa.setLayout(layout); 
+
+		// Cria um objeto GLCapabilities para especificar o número de bits 
+		// por pixel para RGBA
+		GLCapabilities c = new GLCapabilities();
+		c.setRedBits(8);
+		c.setBlueBits(8);
+		c.setGreenBits(8);
+		c.setAlphaBits(8); 
+
+		// Cria o objeto que irá gerenciar os eventos
+		renderer = new Main();
+		
+		// Cria um canvas, adiciona na janela, e especifica o objeto "ouvinte" 
+		// para os eventos Gl, de mouse e teclado
+		// GLCanvas canvas = GLDrawableFactory.getFactory().createGLCanvas(c);
+		GLCanvas canvas = new GLCanvas(c);
+		janela.add(canvas,BorderLayout.CENTER);
+		canvas.addGLEventListener(renderer);        
+		canvas.addMouseListener(renderer);
+		canvas.addKeyListener(renderer);
+		janela.setVisible(true);
+		canvas.requestFocus();
 	}
 
-	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Frame ej = new Frame();
+	}	
 }

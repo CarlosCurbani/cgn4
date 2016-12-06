@@ -1,16 +1,21 @@
 package br.furb.cg.labirinto;
 
+import javax.media.opengl.GL;
+import javax.media.opengl.glu.GLU;
+import br.furb.cg.objetoGL.ObjetoGrafico;
 import br.furb.cg.pacman.PacMan;
 
 public class Labirinto {
 	private int[][] terreno;
 	private PacMan pacMan;
 	private int length;
+	private ObjetoGrafico objetoGrafico;
 	
 	public Labirinto(){
 		geraTerreno(10);
 		imprimeLabirinto();
 		pacMan = new PacMan();
+		objetoGrafico = new ObjetoGrafico();
 	}
 	
 	private void geraTerreno(int x){
@@ -77,6 +82,24 @@ public class Labirinto {
 			pacMan.moveDown();
 		}
 		imprimeLabirinto();
+	}
+	
+	public void desenhaLabirinto(GL gl, GLU glu){
+	    float corRed[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	    float corGreen[] = { 0.0f, 1.0f, 0.0f, 1.0f };
+		for (int i = 0; i < terreno.length; i++) {
+			for (int j = 0; j < terreno.length; j++) {
+				if (terreno[i][j] == 1){
+					objetoGrafico.drawCube(2, 2, 2, corRed, gl);
+					gl.glTranslated(2.1, 0f, 0f);
+				}else{
+					objetoGrafico.drawCube(2, 2, 2, corGreen, gl);
+					gl.glTranslated(2.1, 0f,0f);
+				};
+			}
+			gl.glTranslated(-1 *(2.1 * terreno.length ), 0f, 2.1f);
+			
+		}
 	}
 	
 }
