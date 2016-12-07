@@ -137,13 +137,13 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
 		gl.glLoadIdentity();
 		
-		//if (luz)
+		if (luz)
 			gl.glEnable(GL.GL_LIGHT0);
-		//else
-		//	gl.glDisable(GL.GL_LIGHT0);
+		else
+			gl.glDisable(GL.GL_LIGHT0);
 		
 		especificaParametrosVisualizacao(); 
-		//defineIluminacao();
+		defineIluminacao();
 
 
 		labirinto.desenhaLabirinto(gl, glu);

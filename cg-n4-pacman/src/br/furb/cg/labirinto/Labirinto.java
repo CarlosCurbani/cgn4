@@ -136,7 +136,7 @@ public class Labirinto {
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
 				if (terreno[i][j] == 1){
-					gl.glColor3f(0.0f, 20.0f, 0.0f);
+					gl.glColor3f(0.0f, 00.0f, 200.0f);
 					objetoGrafico.drawCube(2, 8, 2, corRed, gl);					
 					gl.glTranslated(2, 0f, 0f);
 				}else{

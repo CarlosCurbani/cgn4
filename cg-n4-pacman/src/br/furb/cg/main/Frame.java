@@ -16,7 +16,7 @@ public class Frame
 	public Frame()
 	{
 		// Cria janela
-		JFrame janela = new JFrame("Textura");   
+		JFrame janela = new JFrame("CG-PAC_MAN");   
 		janela.setBounds(50,100,500,500); 
 		janela.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
