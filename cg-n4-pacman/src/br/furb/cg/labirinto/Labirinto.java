@@ -17,13 +17,29 @@ public class Labirinto {
 	private ArrayList<Adversario> adversarios;
 	
 	public Labirinto(){
-		geraTerreno(10);
+		//geraTerreno(10);
+		geraTerrenoFixo();
 		pacMan = new PacMan(5, 4);
 		adversarios = createAdversarios();
 		imprimeLabirinto();
 		objetoGrafico = new ObjetoGrafico();
 	}
 	
+	private void geraTerrenoFixo(){
+		terreno = new int[][]{
+			 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+			 {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+			 {1, 0, 1, 1, 0, 0, 0, 1, 0, 1},
+			 {1, 0, 0, 0, 0, 1, 1, 1, 0, 1},
+			 {1, 0, 1, 1, 0, 1, 0, 0, 0, 1},
+			 {1, 0, 0, 1, 2, 0, 0, 1, 0, 1},
+			 {1, 1, 0, 0, 0, 1, 0, 1, 0, 1},
+			 {1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
+			 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+			 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+		
+	}
 	private void geraTerreno(int x){
 		int maxParede = 0;
 		length = x - 1;
@@ -120,17 +136,23 @@ public class Labirinto {
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
 				if (terreno[i][j] == 1){
-					gl.glColor3f(20.0f, 20.0f, 0.0f);
+					gl.glColor3f(0.0f, 20.0f, 0.0f);
 					objetoGrafico.drawCube(2, 8, 2, corRed, gl);					
 					gl.glTranslated(2, 0f, 0f);
 				}else{
 					if (terreno[i][j] == 2){
 						gl.glTranslated(0, 2f, 0f);
+						gl.glColor3f(20.0f, 20.0f, 0.0f);
+						objetoGrafico.drawPacMan(2, 8, 2, corRed, gl);
+						gl.glTranslated(0, -2f, 0f);
+					}
+					if (terreno[i][j] == 3){
+						gl.glTranslated(0, 2f, 0f);
 						gl.glColor3f(20.0f, 0f, 0.0f);
 						objetoGrafico.drawPacMan(2, 8, 2, corRed, gl);
 						gl.glTranslated(0, -2f, 0f);
 					}
-					gl.glColor3f(0.0f, 20.0f, 20.0f);
+					gl.glColor3f(0.0f, 200.0f, 20.0f);
 					objetoGrafico.drawCube(2, 2, 2, corGreen, gl);					
 					gl.glTranslated(2, 0f,0f);
 					
