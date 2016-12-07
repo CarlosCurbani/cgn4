@@ -1,8 +1,12 @@
 package br.furb.cg.labirinto;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import br.furb.cg.objetoGL.ObjetoGrafico;
+import br.furb.cg.pacman.Adversario;
 import br.furb.cg.pacman.PacMan;
 
 public class Labirinto {
@@ -10,26 +14,52 @@ public class Labirinto {
 	private PacMan pacMan;
 	private int length;
 	private ObjetoGrafico objetoGrafico;
+	private ArrayList<Adversario> adversarios;
 	
 	public Labirinto(){
 		geraTerreno(10);
+		pacMan = new PacMan(5, 4);
+		adversarios = createAdversarios();
 		imprimeLabirinto();
-		pacMan = new PacMan();
 		objetoGrafico = new ObjetoGrafico();
 	}
 	
 	private void geraTerreno(int x){
+		int maxParede = 0;
 		length = x - 1;
 		terreno = new int [x][x];
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
-					terreno[i][j] = (int) Math.round(Math.random() * 1);			
+				int value = (int) Math.round(Math.random() * 1);
+				if (value == 1 && maxParede < (x * 3)) {
+					terreno[i][j] = 1;		
+					maxParede++;
+				} else {
+					terreno[i][j] = 0;
+				}
+						
 			}
 			System.out.println("");			
 		}
 		terreno[5][4] = 2;
 	}
 
+	public ArrayList<Adversario> createAdversarios() {
+		Random rn = new Random();
+		ArrayList<Adversario> adversarios = new ArrayList<>();
+		do {
+			int x = rn.nextInt(10);
+			int y = rn.nextInt(10);
+			if (terreno[x][y] == 0) {
+				Adversario adv = new Adversario(x, y, length, terreno);
+				adversarios.add(adv);
+				new Thread(adv).start();
+				terreno[x][y] = 3;
+			}
+		} while (adversarios.size() < 6);
+		return adversarios;
+	}
+	
 	public void imprimeLabirinto(){
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
@@ -90,14 +120,23 @@ public class Labirinto {
 		for (int i = 0; i < terreno.length; i++) {
 			for (int j = 0; j < terreno.length; j++) {
 				if (terreno[i][j] == 1){
-					objetoGrafico.drawCube(2, 2, 2, corRed, gl);
-					gl.glTranslated(2.1, 0f, 0f);
+					gl.glColor3f(20.0f, 20.0f, 0.0f);
+					objetoGrafico.drawCube(2, 8, 2, corRed, gl);					
+					gl.glTranslated(2, 0f, 0f);
 				}else{
-					objetoGrafico.drawCube(2, 2, 2, corGreen, gl);
-					gl.glTranslated(2.1, 0f,0f);
-				};
+					if (terreno[i][j] == 2){
+						gl.glTranslated(0, 2f, 0f);
+						gl.glColor3f(20.0f, 0f, 0.0f);
+						objetoGrafico.drawPacMan(2, 8, 2, corRed, gl);
+						gl.glTranslated(0, -2f, 0f);
+					}
+					gl.glColor3f(0.0f, 20.0f, 20.0f);
+					objetoGrafico.drawCube(2, 2, 2, corGreen, gl);					
+					gl.glTranslated(2, 0f,0f);
+					
+				}
 			}
-			gl.glTranslated(-1 *(2.1 * terreno.length ), 0f, 2.1f);
+			gl.glTranslated(-1 *(2 * terreno.length ), 0f, 2f);
 			
 		}
 	}

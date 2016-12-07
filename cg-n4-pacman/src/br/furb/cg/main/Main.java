@@ -33,12 +33,12 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 	private ByteBuffer buffer;
 	private Labirinto labirinto;
 	
-//	private float corRed[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-//  private float corGreen[] = { 0.0f, 1.0f, 0.0f, 1.0f };
+	private float corRed[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+  private float corGreen[] = { 0.0f, 1.0f, 0.0f, 1.0f };
 	private float corBlue[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 	private float corYellow[] = {20f, 20f, 0f, 1f};
-//  private float corWhite[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-//  private float corBlack[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+  private float corWhite[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+  private float corBlack[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	
 	/**
 	 * Construtor da classe Renderer que não recebe parâmetros.
@@ -133,80 +133,36 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 	 */  
 	public void display(GLAutoDrawable drawable)
 	{
+		
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
 		gl.glLoadIdentity();
 		
-		if (luz)
+		//if (luz)
 			gl.glEnable(GL.GL_LIGHT0);
-		else
-			gl.glDisable(GL.GL_LIGHT0);
+		//else
+		//	gl.glDisable(GL.GL_LIGHT0);
 		
 		especificaParametrosVisualizacao(); 
-		defineIluminacao();
+		//defineIluminacao();
 		
 		gl.glLineWidth(2);
 		
 		// Desenha uma esfera azul
-		//gl.glColor4fv(corYellow, 0);
-		gl.glPushMatrix();
-			gl.glTranslatef(30.0f, 0.0f, 0.0f);
-			glut.glutSolidSphere(1, 30, 30);
-		gl.glPopMatrix();
+		//gl.glColor3f(20.0f, 20.0f, 0.0f);
+		//gl.glPushMatrix();
+		//	gl.glTranslatef(30.0f, 0.0f, 0.0f);
+		//	glut.glutSolidSphere(14, 30, 30);
+		//gl.glPopMatrix();
 		
-		drawCube(2.0f,2.0f,2.0f);
-		gl.glTranslated(0.0f, 0.0f, 2.1f);
-		drawCube(2.0f,2.0f,2.0f);
-
 		
-		// Desenha um cubo no qual a textura é aplicada
-//		gl.glEnable(GL.GL_TEXTURE_2D);	// Primeiro habilita uso de textura	  
+  
 		labirinto.desenhaLabirinto(gl, glu);
-		gl.glPushMatrix();
-//			gl.glTranslatef(-30.0f, 0.0f, 0.0f);
-//			gl.glScalef(1.0f, 1.0f, 1.0f);
-//			gl.glColor3f(1.0f, 1.0f, 1.0f);
-//			gl.glBegin (GL.GL_QUADS );
-//				// Especifica a coordenada de textura para cada vértice
-//				// Face frontal
-//				gl.glNormal3f(0.0f,0.0f,-1.0f);
-//				
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( 1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( 1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-1.0f,  1.0f,  1.0f);				
-//				// Face posterior
-//				gl.glNormal3f(0.0f,0.0f,1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f, -1.0f);
-//				// Face superior
-//				gl.glNormal3f(0.0f,1.0f,0.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( 1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f, -1.0f);
-//				// Face inferior
-//				gl.glNormal3f(0.0f,-1.0f,0.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f( 1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f,  1.0f);
-//				// Face lateral direita
-//				gl.glNormal3f(1.0f,0.0f,0.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f,  1.0f);
-//				// Face lateral esquerda
-//				gl.glNormal3f(-1.0f,0.0f,0.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f, -1.0f);
-//			gl.glEnd();
-//		gl.glPopMatrix();
-//		gl.glDisable(GL.GL_TEXTURE_2D);	//	Desabilita uso de textura
+		
+		
+		
+	
+		
+
 	}
 	
 	//desenha cubo

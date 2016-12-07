@@ -21,6 +21,18 @@ public class ObjetoGrafico {
 		gl.glDisable(GL.GL_LIGHTING);
 	}
 	
+	public void drawPacMan(float xS, float yS, float zS, float[] corObjeto, GL gl) {
+	    gl.glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE, corObjeto, 0);
+	    gl.glEnable(GL.GL_LIGHTING);
+
+		gl.glPushMatrix();
+			//gl.glScalef(xS,yS,zS);
+			glut.glutSolidSphere(1, 30, 30);
+		gl.glPopMatrix();
+		
+		gl.glDisable(GL.GL_LIGHTING);
+	}
+	
 
 	public ObjetoGrafico(){
 		glut = new GLUT();
