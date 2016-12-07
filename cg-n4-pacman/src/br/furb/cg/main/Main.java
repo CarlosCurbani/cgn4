@@ -46,18 +46,18 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 	public Main()
 	{
 		// Especifica o �ngulo da proje��o perspectiva  
-		angle=50;   
+		angle=20;   
 		// Inicializa o valor para corre��o de aspecto   
-		fAspect = 1; 
+		fAspect = 10; 
 		
 		// Inicializa os atributos usados para alterar a posi��o do 
 		// observador virtual (=c�mera)
-		rotX = 50;
+		rotX = 70;
 		rotY = 0;
 		obsZ = 200; 
 	
 		luz = true;
-		labirinto = new Labirinto();
+		labirinto =  Labirinto.getInstance();
 	}
 	
 	/**
@@ -73,37 +73,14 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 
 		drawable.setGL(new DebugGL(gl));        
 
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);    
-		
-		gl.glEnable(GL.GL_LIGHT0);
-		gl.glEnable(GL.GL_LIGHT1);
-		gl.glEnable(GL.GL_LIGHTING);
-		
-		gl.glEnable(GL.GL_COLOR_MATERIAL);
-		gl.glColorMaterial(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT_AND_DIFFUSE);	
-		
-		// Habilita o modelo de coloriza��o de Gouraud
-		gl.glShadeModel(GL.GL_SMOOTH);
-		
-		// Comandos de inicializa��o para textura
-		//loadImage("madeira.jpg");
-		loadImage("xadres.jpg");
-		
-		// Gera identificador de textura
-		idTexture = new int[10];
-		gl.glGenTextures(1, idTexture, 1);
-		
-		// Especifica qual � a textura corrente pelo identificador 
-		gl.glBindTexture(GL.GL_TEXTURE_2D, idTexture[0]);	
-		
-		// Envio da textura para OpenGL
-		gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, 3, width, 
-				height, 0, GL.GL_BGR, GL.GL_UNSIGNED_BYTE, buffer);
 
-		// Define os filtros de magnifica��o e minifica��o 
-		gl.glTexParameteri(GL.GL_TEXTURE_2D,GL.GL_TEXTURE_MIN_FILTER,GL.GL_LINEAR);	
-		gl.glTexParameteri(GL.GL_TEXTURE_2D,GL.GL_TEXTURE_MAG_FILTER,GL.GL_LINEAR);
+		
+	    float posLight[] = { 5.0f, 5.0f, 10.0f, 0.0f };
+	    gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
+	    gl.glEnable(GL.GL_LIGHT0);
+
+	    gl.glEnable(GL.GL_CULL_FACE);
+	    gl.glEnable(GL.GL_DEPTH_TEST);
 			
 	}
 	
@@ -138,30 +115,19 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 		gl.glLoadIdentity();
 		
 		if (luz)
-			gl.glEnable(GL.GL_LIGHT0);
+			gl.glEnable(GL.GL_LIGHTING);
 		else
-			gl.glDisable(GL.GL_LIGHT0);
+			gl.glDisable(GL.GL_LIGHTING);
 		
 		especificaParametrosVisualizacao(); 
 		defineIluminacao();
-
-
-		labirinto.desenhaLabirinto(gl, glu);
+		labirinto = Labirinto.getInstance();
+		labirinto.setGl(gl);
+		labirinto.setGlu(glu);
+		labirinto.desenhaLabirinto();
 
 	}
 	
-	//desenha cubo
-	private void drawCube(float xS, float yS, float zS) {
-	    gl.glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE, corBlue, 0);
-	    gl.glEnable(GL.GL_LIGHTING);
-
-		gl.glPushMatrix();
-			gl.glScalef(xS,yS,zS);
-			glut.glutSolidCube(1.0f);
-		gl.glPopMatrix();
-		
-		gl.glDisable(GL.GL_LIGHTING);
-	}
 	/**
 	 * M�todo definido na interface GLEventListener e chamado pelo objeto no qual ser� feito o desenho
 	 * depois que a janela foi redimensionada.
