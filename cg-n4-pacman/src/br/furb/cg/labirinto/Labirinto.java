@@ -56,7 +56,7 @@ public class Labirinto {
 				new Thread(adv).start();
 				terreno[x][y] = 3;
 			}
-		} while (adversarios.size() < 6);
+		} while (adversarios.size() < 3);
 		return adversarios;
 	}
 	
