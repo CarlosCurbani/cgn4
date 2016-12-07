@@ -144,79 +144,10 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 		
 		especificaParametrosVisualizacao(); 
 		//defineIluminacao();
-		
-		gl.glLineWidth(2);
-		
-		// Desenha uma esfera azul
-		//gl.glColor3f(20.0f, 20.0f, 0.0f);
-		//gl.glPushMatrix();
-		//	gl.glTranslatef(30.0f, 0.0f, 0.0f);
-		//	glut.glutSolidSphere(14, 30, 30);
-		//gl.glPopMatrix();
-		
-		
-<<<<<<< HEAD
-  
-=======
-		// Desenha um cubo no qual a textura � aplicada
-//		gl.glEnable(GL.GL_TEXTURE_2D);	// Primeiro habilita uso de textura	  
->>>>>>> branch 'master' of https://github.com/CarlosCurbani/cgn4.git
-		labirinto.desenhaLabirinto(gl, glu);
-<<<<<<< HEAD
-		
-		
-		
-	
-		
 
-=======
-		gl.glPushMatrix();
-//			gl.glTranslatef(-30.0f, 0.0f, 0.0f);
-//			gl.glScalef(1.0f, 1.0f, 1.0f);
-//			gl.glColor3f(1.0f, 1.0f, 1.0f);
-//			gl.glBegin (GL.GL_QUADS );
-//				// Especifica a coordenada de textura para cada v�rtice
-//				// Face frontal
-//				gl.glNormal3f(0.0f,0.0f,-1.0f);
-//				
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( 1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( 1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-1.0f,  1.0f,  1.0f);				
-//				// Face posterior
-//				gl.glNormal3f(0.0f,0.0f,1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f, -1.0f);
-//				// Face superior
-//				gl.glNormal3f(0.0f,1.0f,0.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( 1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f, -1.0f);
-//				// Face inferior
-//				gl.glNormal3f(0.0f,-1.0f,0.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f( 1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f,  1.0f);
-//				// Face lateral direita
-//				gl.glNormal3f(1.0f,0.0f,0.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f, -1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f( 1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f( 1.0f, -1.0f,  1.0f);
-//				// Face lateral esquerda
-//				gl.glNormal3f(-1.0f,0.0f,0.0f);
-//				gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-//				gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f(-1.0f, -1.0f,  1.0f);
-//				gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f,  1.0f);
-//				gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-1.0f,  1.0f, -1.0f);
-//			gl.glEnd();
-//		gl.glPopMatrix();
-//		gl.glDisable(GL.GL_TEXTURE_2D);	//	Desabilita uso de textura
->>>>>>> branch 'master' of https://github.com/CarlosCurbani/cgn4.git
+
+		labirinto.desenhaLabirinto(gl, glu);
+
 	}
 	
 	//desenha cubo
@@ -351,6 +282,30 @@ public class Main extends MouseAdapter implements GLEventListener, KeyListener
 				break;
 			case KeyEvent.VK_DOWN:
 				labirinto.moveDown();
+				break;
+			case KeyEvent.VK_A:
+				rotY--;
+				break;
+			case KeyEvent.VK_D:
+				rotY++;
+				break;
+			case KeyEvent.VK_W:
+				rotX++;
+				break;
+			case KeyEvent.VK_S:
+				rotX--;
+				break;
+			case KeyEvent.VK_HOME:
+				obsZ++;
+				break;
+			case KeyEvent.VK_END:
+				obsZ--;
+				break;
+			case KeyEvent.VK_F1:
+				luz = !luz;
+				break;
+			case KeyEvent.VK_ESCAPE:
+				System.exit(0);
 				break;
 		}  
 		glDrawable.display();
